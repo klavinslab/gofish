@@ -1,0 +1,25 @@
+{
+  "name": "gofish",
+  "version": "1.0.0",
+  "description": "Gets and packages Aquarium's model javascript library",
+  "main": "gofish.js",
+  "scripts": {
+    "test": "node gofish.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klavinslab/gofish.git"
+  },
+  "keywords": [
+    "Aquarium"
+  ],
+  "author": "Eric Klavins",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/klavinslab/gofish/issues"
+  },
+  "homepage": "https://github.com/klavinslab/gofish#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
