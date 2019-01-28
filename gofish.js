@@ -1,12 +1,11 @@
 const request = require('request');
-const  fs = require('fs');
+const fs = require('fs');
 
 const username = process.argv[2];
 const password = process.argv[3];
 const api_url = `https://${username}:${password}@api.github.com`;
 const aq_url = api_url + '/repos/klavinslab/aquarium/contents';
 const models_url = aq_url + '/app/assets/javascripts/models';
-
 
 const http_options = {
   json: true,
@@ -33,7 +32,7 @@ function get_paths() {
   return new Promise(function(resolve,reject) {
     request(models_url, http_options, (err,res,contents) => {
       if (err) { reject(err); }
-      let paths = [];
+      let paths = [ '/app/assets/javascripts/aq.js' ];
       for ( var i=0; i<contents.length; i++ ) {
         paths.push(contents[i].path)
       }
@@ -68,11 +67,15 @@ function get_all_content(paths) {
 
 function compile_js(js_files) {
   console.log("compiling javascript");
-  let str = "";
+  let str = fs.readFileSync('prequel.js', 'utf8');
+  str += "\n";
   for (var i=0; i<js_files.length; i++) {
     str += js_files[i];
   }
+
+  str += fs.readFileSync('sequel.js', 'utf8');
   str += "\nmodule.exports = AQ;\n";
+
   return str;
 }
 
