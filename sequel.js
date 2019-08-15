@@ -105,32 +105,28 @@ AQ.post = function(path,data) {
     c.push(c[0].replace('remember_token_development', 'remember_token'));
 
     if ( AQ.login_headers ) {
-    headers = {
-        cookie: c
-    }
+      headers = {
+          cookie: c
+      }
     } else {
-    headers = {};
+      headers = {};
     }
     
     return new Promise(function(resolve,reject) {
-    request({
-        method: 'post',
-        url: AQ.config.aquarium_url + path,
-        headers: headers,
-        form: extend(data, { authentication_key: AQ.authkey }) },
-        function (error, response, body) {
-        var parsed_body;
-        try {
-            parsed_body = JSON.parse(body)
-        } catch(e) {
-            parsed_body = null;
-        }
-        if (!error && parsed_body && response.statusCode == 200) {
-            resolve({ data: parsed_body});
-        } else {
-            reject({error: error, statusCode: response.statusCode, body: body});
-        }
-        })
+      request({
+            method: 'post',
+            url: AQ.config.aquarium_url + path,
+            headers: headers,
+            json: data
+          },
+          function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                resolve({ data: body});
+            } else {
+                console.log(data)
+                reject({error: error, statusCode: response.statusCode, body: body});
+            }
+          })
     });
 
 };
