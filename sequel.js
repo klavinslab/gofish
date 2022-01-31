@@ -106,7 +106,7 @@ AQ.post = function(path,data) {
     var c = AQ.login_headers["set-cookie"];
     let remember_cookie = c[0].replace('remember_token_development', 'remember_token');
     if ( !c.includes(remember_cookie) ) {
-      c.push(c[0].replace('remember_token_development', 'remember_token'));
+      c.push(remember_cookie);
     }  
   
     if ( AQ.login_headers ) {
