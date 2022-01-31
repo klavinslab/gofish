@@ -102,8 +102,13 @@ AQ.post = function(path,data) {
     var headers;
 
     var c = AQ.login_headers["set-cookie"];
-    c.push(c[0].replace('remember_token_development', 'remember_token'));
-
+  
+    var c = AQ.login_headers["set-cookie"];
+    let remember_cookie = c[0].replace('remember_token_development', 'remember_token');
+    if ( !c.includes(remember_cookie) ) {
+      c.push(c[0].replace('remember_token_development', 'remember_token'));
+    }  
+  
     if ( AQ.login_headers ) {
       headers = {
           cookie: c
